@@ -128,7 +128,7 @@
       @media screen and (min-width: 400px){
         #inputs, 
         #results {
-          padding-top: 100px;
+          padding-top: 80px;
         }
         #inputs h2,
         #results h2 {
@@ -138,6 +138,9 @@
       #results {
         background-color: rgba(255, 255, 255, 0.8);
         height: 100vh;
+      }
+      #results h2 {
+        color: black;
       }
       .buffer {        
         padding-top: 20px;
@@ -257,6 +260,10 @@
         .btn-default:focus {
           background-color: rgb(51,122,183);
       }
+
+      canvas {
+        max-width: 100%;
+      }
     </style>
 
     <!-- Scrolling Nav -->
@@ -329,22 +336,6 @@
       </div>
       <div class="row section buffer">
         <div class="col-lg-8 col-lg-offset-2">
-          <!--div class="row">
-            <input type="text" class="first" placeholder="First name"><br>
-            <input type="text" class="middle" placeholder="Middle initial"><br>
-          </div>
-          <div class="row">
-            <input type="text" class="last" placeholder="Last name"><br>
-            Gender: <select class="gender">
-              <option value="m">Male</option>
-              <option value="f">Female</option>
-              <option value="o">Other</option>
-            </select><br>
-          </div>
-          <div class="row">  
-            <input type="button" class="submit" value="Get Shwifty">
-          </div-->
-
           <form>
             <div class="form-group">
               <label for="firstName">First Name</label>
@@ -366,8 +357,25 @@
                 <option value="o">Other</option>
               </select>
             </div>
+            <div class="form-group">
+              <label for="birthMonth">Birth Month</label>
+              <select class="form-control" id="birthMonth">
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+            </div>
             <div class="text-center">
-              <a href="#results"><button type="submit" class="btn btn-primary submit">Get Shwifty</button></a>
+              <button type="submit" class="btn btn-primary submit"><a href="#results" class="page-scroll">Get Shwifty</a></button>
             </div>
           </form>
         </div>
@@ -376,7 +384,10 @@
 
 
     
-    <div class="container-fluid" id="results">
+    <div class="container-fluid" id="results">      
+      <div class="row text-center">
+        <h2>Your Results!</h2>
+      </div>
       <div class="row">
         <div class="col-lg-4 col-lg-offset-2">
           <canvas id="c" width="400" height="400"></canvas>
@@ -443,7 +454,14 @@
       image.onload = function(){
         ctx.drawImage(image, 0, 0);
       };
-      image.src = 'img/1.png';
+      image.src = 'img/1.png';        
+
+      ctx.font = '36pt impact';
+      ctx.textAlign = 'right';
+
+      ctx.fillStyle = 'white';
+      ctx.strokeStyle = 'black';
+      ctx.lineWidth = 3;
 
     </script>
 
@@ -537,7 +555,7 @@
           'z': ['Jones','Wimpeebax'],
         }
       }
-      var isHuman, x, y, realFirstName, realMiddleInitial, realLastName, gender;
+      var isHuman, x, y, j, realFirstName, realMiddleInitial, realLastName, gender, birthMonth;
       var coinToss = function(){
         var i = Math.random();
         if (i >= 0.5){
@@ -586,8 +604,35 @@
         realMiddleInitial = $('#middleInitial').val();
         realLastName = $('#lastName').val();
         gender = $('#gender').val();
+        birthMonth = $('#birthMonth').val();
 
-        $('.name').text(getFullName(getFirstName(realFirstName, realMiddleInitial, gender, x), getLastName(realLastName, y)));
+        ctx.clearRect(0, 0, c.width, c.height);
+
+
+        image.src = 'img/' + gender + '/' + birthMonth + '.png';
+
+        var fullName = getFullName(getFirstName(realFirstName, realMiddleInitial, gender, x), getLastName(realLastName, y)).split(' ');
+        console.log(fullName);
+
+        ctx.strokeText('bears', c.width/2, 50);
+        ctx.fillText('bears', c.width/2, 50);
+
+
+        image.onload = function(){
+          if (fullName.length === 3){
+            j = 125;
+          } else {
+            j = 75;
+          }
+          ctx.drawImage(image, 0, 0);
+          fullName.forEach(function(name){
+            ctx.strokeText(name, c.width - 10, c.height - j);
+            ctx.fillText(name, c.width - 10, c.height - j);
+            j -= 50;
+          })
+        };
+        $('.name').text(fullName);
+
       })
 
     </script>

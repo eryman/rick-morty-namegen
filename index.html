@@ -572,6 +572,15 @@
       }
 
       $('.submit').click(function(){
+
+        realFirstName = $('#firstName').val();
+        realMiddleInitial = $('#middleInitial').val();
+        realLastName = $('#lastName').val();
+        gender = $('#gender').val();
+        birthMonth = $('#birthMonth').val();
+
+        ctx.clearRect(0, 0, c.width, c.height);
+        
         isHuman = coinToss();
 
         if (gender != 'o'){
@@ -581,13 +590,7 @@
           x = 1;
           y = 0;
         }
-        realFirstName = $('#firstName').val();
-        realMiddleInitial = $('#middleInitial').val();
-        realLastName = $('#lastName').val();
-        gender = $('#gender').val();
-        birthMonth = $('#birthMonth').val();
 
-        ctx.clearRect(0, 0, c.width, c.height);
 
 
         image.src = 'img/' + gender + '/' + birthMonth + '.png';

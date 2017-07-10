@@ -13,7 +13,8 @@
 
     <!-- Icon Fonts -->    
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <!-- Favicon -->
     <!--link rel="shortcut icon" href="favicon.png" type="image/x-icon"-->
     <!--link rel="icon" href="favicon.png" type="image/x-icon"-->
@@ -27,6 +28,12 @@
         background-repeat: no-repeat;
         background-attachment: fixed;
         color: white;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: 'Press Start 2P', cursive;
       }
       .container-fluid {
         width: 100%;
@@ -50,7 +57,7 @@
         padding-right: 0;
       }
       .jumbotron h1 {
-        font-size: 70px;
+        font-size: 24px;
         margin-top: calc(50vh - 4em);
         text-shadow: 4px 4px 4px rgba(0,0,0,0.5);
       }
@@ -71,6 +78,7 @@
           box-shadow: none;
         }
         .jumbotron h1 {
+          font-size: 48px;
           margin-top: calc(50vh - 2.5em + 60px);
         }
         .jumbotron-inner {
@@ -91,12 +99,14 @@
         }
       }
 
-      #inputs {
-        height: 100vh;
+      #inputs,
+      #results {
+        min-height: 100vh;
         padding-top: 50px;
       }
-      #inputs h2 {
-        font-size: 20px
+      #inputs h2,
+      #results h2 {
+        font-size: 16px
       }
       @media screen and (min-width: 400px){
         #inputs, 
@@ -105,7 +115,7 @@
         }
         #inputs h2,
         #results h2 {
-          font-size: 30px;
+          font-size: 24px;
         }
       }
       #results {
@@ -167,6 +177,16 @@
       ::selection {
         background-color: lime;
       }
+      label {        
+        font-size: 8px;
+        font-family: 'Press Start 2P', cursive;
+      }
+      @media screen and (min-width: 768px){
+        label {
+          font-size: 16px;
+          text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+        }
+      }
       footer {
         background-color: black;
       }
@@ -205,7 +225,9 @@
 
       .btn {
         text-transform: uppercase;
+
         font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family: 'Press Start 2P', cursive;
         font-weight: 700;
         -webkit-transition: all 0.3s ease-in-out;
         -moz-transition: all 0.3s ease-in-out;
@@ -228,6 +250,9 @@
         text-shadow: 3px 3px 3px rgba(0,255,0,0.5);
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.075) inset, 0 0 40px lime;
       }      
+      .share:hover {
+        text-shadow: 0 0 0 rgba(0,0,0,0);
+      }
       @media screen and (max-width: 767px){
         .btn-default:hover,
         .btn-default:focus {
@@ -285,7 +310,7 @@
         <br>
         <br>
         <a href="#inputs" class="page-scroll">
-          <button class="btn btn-primary btn-default share">
+          <button class="btn btn-primary btn-default">
             <i class="fa fa-angle-double-down animated"></i>
             Get Shwifty
             <i class="fa fa-angle-double-down animated"></i>
@@ -340,9 +365,9 @@
             </div>
             <div class="text-center">
               <a href="#results" class="page-scroll">
-                <button class="btn btn-primary btn-default submit share">
+                <button class="btn btn-primary btn-default submit">
                   <i class="fa fa-angle-double-down animated"></i>
-                  Lick, lick, lick my ballsss!
+                  Grass tastes bad
                   <i class="fa fa-angle-double-down animated"></i>
                 </button>
               </a>
@@ -366,9 +391,9 @@
         <div class="col-lg-4">
           <h3>Share your results!</h3>
           <p>Share your results on Facebook!</p>
-          <button class="btn btn-primary btn-default share">
-            Share!
-          </button>
+            <button class="btn btn-primary btn-default share">
+              Share!
+            </button>
         </div>
       </div>
     </div>
@@ -379,37 +404,6 @@
         <p>Copyright &copy; MRO Developers 2017</p>
       </div>
     </footer>
-
-
-
-        <!-- Modal -->
-    <!--div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            
-          </div>
-          <div class="modal-body">
-            <div class="modal-body-inner container-fluid center-block">
-              <div class="col-sm-4 col-sm-offset-2">
-                <img src="{{ projectModal.screenshot }}" alt="{{ projectModal.name }} cover image" class="modal-image">
-              </div>
-              <div class="modal-body-text col-sm-4">
-                <h3 class="modal-title" id="projectModalTitle">{{ projectModal.name }}</h3>
-                <p ng-repeat="paragraph in projectModal.description">{{ paragraph }}</p>
-                <p><strong>Languages </strong><span ng-repeat="language in projectModal.languages"> | {{ language }}</span></p>
-                <a href="{{ projectModal.githubLink }}" class="modal-link" target="_blank">Click here see this project on Github!</a>
-              </div>
-            </div>            
-          </div>
-        </div>
-      </div>
-    </div-->
-
-
 
 
   </div>

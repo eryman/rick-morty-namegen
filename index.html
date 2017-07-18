@@ -120,8 +120,8 @@
       }
       #results {
         background-color: rgba(255, 255, 255, 0.8);
-        height: 100vh;
         color: black;
+        padding-bottom: 20px;
       }
 
       .buffer {        
@@ -280,6 +280,8 @@
   </head>
 
   <body data-spy="scroll" data-target=".navbar-fixed-top" ng-app="myApp" ng-controller="MainController">
+      
+      <script src="js/fbsdk.js"></script>
 
       <nav class="navbar navbar-custom navbar-fixed-top">
         <div class="container-fluid">
@@ -391,9 +393,23 @@
         <div class="col-lg-4">
           <h3>Share your results!</h3>
           <p>Share your results on Facebook!</p>
-            <button class="btn btn-primary btn-default share">
-              Share!
-            </button>
+            
+          <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+          </fb:login-button>
+
+          <div id="status">
+          </div>
+
+          <div class="fb-like" data-href="https://www.facebook.com/nightofthenerdsconcert/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+
+          <br>
+
+          <button class="btn btn-primary btn-default share">
+            <i class="fa fa-facebook"></i> Share!
+          </button>
+
+          <br>
+
         </div>
       </div>
     </div>
@@ -417,6 +433,8 @@
     <script src="js/jquery.easing.min.js"></script>
     
     <script src="js/scrolling-nav.js"></script>
+
+    <script src="js/login.js"></script>
 
     <script>
       var c = document.querySelector('#c');
@@ -579,43 +597,49 @@
         gender = $('#gender').val();
         birthMonth = $('#birthMonth').val();
 
-        ctx.clearRect(0, 0, c.width, c.height);
-        
-        isHuman = coinToss();
-
-        if (gender != 'o'){
-          x = isHuman ? 0 : 1;
-          y = !isHuman ? 0 : 1;
+        if (realFirstName.length === 0 || realLastName.length === 0){
+          window.alert('First AND last name. Pay attention, you Jerry.')
         } else {
-          x = 1;
-          y = 0;
-        }
 
-
-
-        image.src = 'img/' + gender + '/' + birthMonth + '.png';
-
-        var fullName = getFullName(getFirstName(realFirstName, realMiddleInitial, gender, x), getLastName(realLastName, y)).split(' ');
-        console.log(fullName);
-
-        ctx.strokeText('bears', c.width/2, 50);
-        ctx.fillText('bears', c.width/2, 50);
-
-
-        image.onload = function(){
-          if (fullName.length === 3){
-            j = 125;
-          } else {
-            j = 75;
+          if (realMiddleInitial.length === 0){
+            window.alert('no MI')
+            realMiddleInitial = 'l'
           }
-          ctx.drawImage(image, 0, 0);
-          fullName.forEach(function(name){
-            ctx.strokeText(name, c.width - 10, c.height - j);
-            ctx.fillText(name, c.width - 10, c.height - j);
-            j -= 50;
-          })
-        };
-        //$('.name').text(fullName);
+
+          ctx.clearRect(0, 0, c.width, c.height);
+          
+          isHuman = coinToss();
+
+          if (gender != 'o'){
+            x = isHuman ? 0 : 1;
+            y = !isHuman ? 0 : 1;
+          } else {
+            x = 1;
+            y = 0;
+          }
+
+
+
+          image.src = 'img/' + gender + '/' + birthMonth + '.png';
+
+          var fullName = getFullName(getFirstName(realFirstName, realMiddleInitial, gender, x), getLastName(realLastName, y))
+          var fullNameArray = fullName.split(' ');
+
+          image.onload = function(){
+            if (fullNameArray.length === 3){
+              j = 125;
+            } else {
+              j = 75;
+            }
+            ctx.drawImage(image, 0, 0);
+            fullNameArray.forEach(function(name){
+              ctx.strokeText(name, c.width - 10, c.height - j);
+              ctx.fillText(name, c.width - 10, c.height - j);
+              j -= 50;
+            })
+          };
+          $('title').text('You are...' + fullName + '! Click here to get your own Rick and Morty Alien Name!');
+        }
 
       })
 
